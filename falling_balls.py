@@ -41,15 +41,14 @@ while running:
             *balls_colors[i]
         ), (balls_coord_x[i], int(balls_coord_y[i])), 10)
         balls_coord_y[i] += v * clock.tick(fps) / 100
+
     for i in range(len(balls_coord_y)):
         if balls_coord_y[i] >= HEIGHT - 10:
             bottom.append((
                 balls_coord_x[i],
                 balls_colors[i]
             ))
-            # del balls_coord_x[i]
-            # del balls_coord_y[i]
-            # del balls_colors[i]
+
     for i in range(len(bottom)):
         pygame.draw.circle(screen, pygame.Color(
             *bottom[i][1]
