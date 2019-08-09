@@ -17,8 +17,8 @@ balls_coord = []
 balls_colors = []
 
 running = True
+screen_2 = pygame.Surface(screen.get_size())
 while running:
-    screen.fill((0, 0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -32,9 +32,9 @@ while running:
                     random.randint(0, 255)
                 )
             )
-
+    screen_2.fill(pygame.Color('black'))
     for i in range(len(balls_coord)):
-        pygame.draw.circle(screen, pygame.Color(
+        pygame.draw.circle(screen_2, pygame.Color(
             *balls_colors[i]
         ), (balls_coord[i][0], int(balls_coord[i][1])), 10)
         y = balls_coord[i][1]
@@ -43,5 +43,8 @@ while running:
             y = HEIGHT - 10
         balls_coord[i] = (balls_coord[i][0], y)
 
+    screen.fill(pygame.Color('black'))
+    screen.blit(screen_2, (0, 0))
     pygame.display.flip()
+
 pygame.quit()
