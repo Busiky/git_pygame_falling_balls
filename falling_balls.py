@@ -19,13 +19,15 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = event.pos
-            balls[pos] = pygame.Color(
-                (
-                    random.randint(0, 255),
-                    random.randint(0, 255),
-                    random.randint(0, 255)
-                )
+            balls[pos] = (
+                random.randint(0, 255),
+                random.randint(0, 255),
+                random.randint(0, 255)
             )
 
+    for ball in balls:
+        pygame.draw.circle(screen, pygame.Color(
+            *balls[ball]
+        ), ball, 10)
     pygame.display.flip()
 pygame.quit()
