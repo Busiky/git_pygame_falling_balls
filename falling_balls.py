@@ -9,14 +9,13 @@ screen.fill(pygame.Color('#000000'))
 clock = pygame.time.Clock()
 v = 100
 fps = 60
-# x, y = pos = (0, 0)
-# color = (200, 0, 0)
 
 # create 2 lists for saving properties of balls
 # coords, colors
 balls_coord_x = []
 balls_coord_y = []
 balls_colors = []
+bottom = []
 
 running = True
 while running:
@@ -36,16 +35,25 @@ while running:
                     random.randint(0, 255)
                 )
             )
-    #         color = balls_colors[0]
-    # pygame.draw.circle(screen, pygame.Color(*color), (x, int(y)), 10)
-    # y += v * clock.tick() / 1000
 
     for i in range(len(balls_coord_x)):
         pygame.draw.circle(screen, pygame.Color(
             *balls_colors[i]
         ), (balls_coord_x[i], int(balls_coord_y[i])), 10)
+        balls_coord_y[i] += v * clock.tick(fps) / 100
     for i in range(len(balls_coord_y)):
-        balls_coord_y[i] += v * clock.tick(fps) / 1000
+        if balls_coord_y[i] >= HEIGHT - 10:
+            bottom.append((
+                balls_coord_x[i],
+                balls_colors[i]
+            ))
+            # del balls_coord_x[i]
+            # del balls_coord_y[i]
+            # del balls_colors[i]
+    for i in range(len(bottom)):
+        pygame.draw.circle(screen, pygame.Color(
+            *bottom[i][1]
+        ), (bottom[i][0], HEIGHT - 10), 10)
 
     pygame.display.flip()
 pygame.quit()
