@@ -12,11 +12,11 @@ clock = pygame.time.Clock()
 # create dict for saving properties of balls
 # (coords): (color)
 balls = {}
+bottom = {}
 
 screen_2 = pygame.Surface(screen.get_size())
 running = True
 while running:
-    # screen_2.blit(screen, (0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -34,11 +34,15 @@ while running:
         pygame.draw.circle(screen_2, pygame.Color(*color), pos, 10)
         x, y = pos
         y += int(v * clock.tick() / 100)
-        if y >= HEIGHT - 10:
-            y = HEIGHT - 10
-
         del balls[pos]
         balls[(x, y)] = color
+        if y >= HEIGHT - 10:
+            bottom[(x, y)] = color
+
+
+    for pos in bottom:
+        pygame.draw.circle(screen_2, pygame.Color(*bottom[pos]), pos, 10)
+        #
 
     screen.fill(pygame.Color('black'))
     screen.blit(screen_2, (0, 0))
