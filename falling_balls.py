@@ -7,9 +7,10 @@ size = WIDTH, HEIGHT = 400, 300
 screen = pygame.display.set_mode(size)
 screen.fill(pygame.Color('#000000'))
 
-# create dict for saving properties of balls
-# (coords): (color)
-balls = {}
+# create 2 lists for saving properties of balls
+# coords, colors
+balls_coords = []
+balls_colors = []
 
 running = True
 while running:
@@ -19,6 +20,16 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = event.pos
+            balls_coords.append(pos)
+            balls_colors.append(
+                pygame.Color(
+                    (
+                        random.randint(0, 255),
+                        random.randint(0, 255),
+                        random.randint(0, 255)
+                    )
+                )
+            )
 
     pygame.display.flip()
 pygame.quit()
