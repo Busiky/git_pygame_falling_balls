@@ -19,6 +19,13 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = event.pos
+            balls[pos] = pygame.Color(
+                (
+                    random.randint(0, 255),
+                    random.randint(0, 255),
+                    random.randint(0, 255)
+                )
+            )
 
     pygame.display.flip()
 pygame.quit()
