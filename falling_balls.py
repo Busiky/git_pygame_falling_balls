@@ -14,7 +14,7 @@ balls_colors = []
 
 running = True
 while running:
-    screen.fill(pygame.Color('black'))
+    screen.fill((0, 0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -22,14 +22,16 @@ while running:
             pos = event.pos
             balls_coords.append(pos)
             balls_colors.append(
-                pygame.Color(
-                    (
-                        random.randint(0, 255),
-                        random.randint(0, 255),
-                        random.randint(0, 255)
-                    )
+                (
+                    random.randint(0, 255),
+                    random.randint(0, 255),
+                    random.randint(0, 255)
                 )
             )
+    for i in range(len(balls_coords)):
+        pygame.draw.circle(screen, pygame.Color(
+            *balls_colors[i]
+        ), balls_coords[i], 10)
 
     pygame.display.flip()
 pygame.quit()
