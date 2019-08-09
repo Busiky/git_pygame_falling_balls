@@ -12,8 +12,8 @@ fps = 60
 
 # create 2 lists for saving properties of balls
 # coords, colors
-balls_coord_x = []
-balls_coord_y = []
+
+balls_coords = []
 balls_colors = []
 bottom = []
 
@@ -24,9 +24,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = pos = event.pos
-            balls_coord_x.append(x)
-            balls_coord_y.append(y)
+            balls_coords.append(event.pos)
 
             balls_colors.append(
                 (
@@ -36,23 +34,24 @@ while running:
                 )
             )
 
-    for i in range(len(balls_coord_x)):
+    for i in range(len(balls_coords)):
         pygame.draw.circle(screen, pygame.Color(
             *balls_colors[i]
-        ), (balls_coord_x[i], int(balls_coord_y[i])), 10)
-        balls_coord_y[i] += v * clock.tick(fps) / 100
+        ), (balls_coords[i][0], int(balls_coords[i][1])), 10)
+        y = balls_coords[i][1]
+        y += v * clock.tick(fps) / 100
+        if y >= HEIGHT - 10:
+            y = HEIGHT - 10
+        balls_coords[i] = (balls_coords[i][0], y)
 
-    for i in range(len(balls_coord_y)):
-        if balls_coord_y[i] >= HEIGHT - 10:
-            bottom.append((
-                balls_coord_x[i],
-                balls_colors[i]
-            ))
+    for i in range(len(balls_coords)):
+        if balls_coords[i][1] >= HEIGHT - 10:
+            bottom.append(i)
 
-    for i in range(len(bottom)):
+    for i in bottom:
         pygame.draw.circle(screen, pygame.Color(
-            *bottom[i][1]
-        ), (bottom[i][0], HEIGHT - 10), 10)
+            *balls_colors[i]
+        ), (balls_coords[i][0], HEIGHT - 10), 10)
 
     pygame.display.flip()
 pygame.quit()
