@@ -14,8 +14,6 @@ coord = []
 speed = []
 color = []
 
-pos = (0, 0)
-
 screen_2 = pygame.Surface(screen.get_size())
 
 running = True
@@ -31,12 +29,11 @@ while running:
     screen_2.fill(pygame.Color('black'))
     for i in range(len(coord)):
         pygame.draw.circle(screen_2, pygame.Color(color[i]), (coord[i][0], int(coord[i][1])), 10)
-        coord[i][1] += speed[i] * clock.tick() / 10
+        coord[i][1] += speed[i] * clock.tick() / 1000
         if coord[i][1] >= HEIGHT - 10:
             speed[i] = 0
 
-    # screen.fill(pygame.Color('black'))
     screen.blit(screen_2, (0, 0))
-
     pygame.display.flip()
+
 pygame.quit()
